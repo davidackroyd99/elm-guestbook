@@ -1,7 +1,7 @@
 module Main exposing (..)
 
 import Browser
-import Html exposing (Html, Attribute, div, input, text, p)
+import Html exposing (Html, Attribute, div, input, text, p, h1, button)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onInput)
 
@@ -41,4 +41,11 @@ noteHtml note =
 
 view : Model -> Html Msg
 view model = 
-    div [] (List.map noteHtml model.notes)
+    div []
+    [
+        h1 [] [text "My Online Guestbook"],
+        input [placeholder "Your Name"] [],
+        input [placeholder "Your Message"] [],
+        button [] [text "Submit"],
+        div [] (List.map noteHtml model.notes)
+    ]

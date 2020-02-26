@@ -20,9 +20,9 @@ type alias Model =
 init : Model
 init =
     {
-        newName = "Test",
-        newContent = "testy",
-        notes = [Named "David" "Hello", Named "David" "Hello2", Anon "Hello3"]
+        newName = "",
+        newContent = "",
+        notes = []
     }
 
 type Msg 
@@ -34,7 +34,7 @@ update : Msg -> Model -> Model
 update msg model = 
     case msg of
         AddNote ->
-            { model | notes = (Named model.newName model.newContent) :: model.notes}
+            { model | notes = (Note model.newName model.newContent) :: model.notes}
         UpdateName name ->
             { model | newName = name}
         UpdateContent content ->

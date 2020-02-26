@@ -1,5 +1,7 @@
 module Note exposing (..)
 
+import Html exposing (Html, div, text)
+
 type alias Name = String
 type alias Content = String
 type Note 

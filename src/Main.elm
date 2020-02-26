@@ -1,28 +1,14 @@
-module Main exposing (main)
+module Main exposing (..)
 
 import Browser
 import Html exposing (Html, Attribute, div, input, text)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onInput)
 
+import Note exposing (..)
+
 main =
     Browser.sandbox { init = init, update = update, view = view }
-
-type alias Name = String
-type alias Content = String
-type Note 
-    = Named Name Content 
-    | Anon Content 
-
-getContent : Note -> String
-getContent note = case note of
-    (Named _ c) -> c
-    (Anon c) -> c
-
-getName : Note -> String
-getName note = case note of
-    (Named n _) -> n
-    (Anon _) -> "Anonymous"
 
 type alias Model = 
     {

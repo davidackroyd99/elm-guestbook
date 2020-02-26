@@ -1,7 +1,6 @@
 module Note exposing (..)
 
-import Html exposing (Html, div, text)
-
+import Time exposing(Posix)
 
 type alias Name =
     String
@@ -12,21 +11,27 @@ type alias Content =
 
 
 type Note
-    = Note Name Content
+    = Note Name Content Posix
 
 
 getContent : Note -> String
 getContent note =
     case note of
-        Note _ c ->
+        Note _ c _ ->
             c
 
 
 getName : Note -> String
 getName note =
     case note of
-        Note "" _ ->
+        Note "" _ _ ->
             "Anonymous"
 
-        Note n _ ->
+        Note n _ _ ->
             n
+
+getDate : Note -> String
+getDate note = 
+    case note of
+        Note _ _ p ->
+            p

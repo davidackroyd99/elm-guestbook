@@ -10,7 +10,7 @@ import Time exposing (Posix)
 
 
 main =
-    Browser.element { init = init, update = update, subscriptions = subscriptions, view = view }
+    Browser.document { init = init, update = update, subscriptions = subscriptions, view = view }
 
 
 type alias Model =
@@ -40,6 +40,12 @@ type Msg
     | AdjustTimeZone Time.Zone
 
 
+type alias Document msg =
+    { title : String
+    , body : List (Html msg)
+    }
+
+
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
@@ -64,12 +70,16 @@ subscriptions model =
     Sub.none
 
 
-view : Model -> Html Msg
+view : Model -> Document Msg
 view model =
-    div []
-        [ h1 [] [ text "My Online Guestbook" ]
-        , input [ placeholder "Your Name", onInput UpdateName ] []
-        , input [ placeholder "Your Message", onInput UpdateContent ] []
-        , button [ onClick AddNote ] [ text "Submit" ]
-        , div [] (List.map noteHtml model.notes)
+    Document "My Online Guestbook"
+        [ div [ class "content" ]
+            [ div [ class "header" ] [ h1 [] [ text "My Online Guestbook" ] ]
+            , div [ class "form" ]
+                [ input [ class "form-name", placeholder "Your Name", onInput UpdateName ] []
+                , input [ class "form-content", placeholder "Your Message", onInput UpdateContent ] []
+                , button [ class "form-submit", onClick AddNote ] [ text "Submit" ]
+                ]
+            , div [ class "note-list" ] (List.map noteHtml model.notes)
+            ]
         ]

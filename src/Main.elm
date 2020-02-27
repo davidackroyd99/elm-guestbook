@@ -7,15 +7,15 @@ import Html.Events exposing (onClick, onInput)
 import Note exposing (..)
 import Task
 import Time exposing (Posix)
-import Derberos.Date.Core exposing (DateRecord, posixToCivil)
+
 
 main =
     Browser.element { init = init, update = update, subscriptions = subscriptions, view = view }
 
 
 type alias Model =
-    { newName : String
-    , newContent : String
+    { newName : Name
+    , newContent : Content
     , timeZone : Time.Zone
     , notes : List Note
     }
@@ -23,16 +23,18 @@ type alias Model =
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-    ({ newName = ""
-    , newContent = ""
-    , notes = []
-    , timeZone = Time.utc
-    }, Task.perform AdjustTimeZone Time.here)
+    ( { newName = ""
+      , newContent = ""
+      , notes = []
+      , timeZone = Time.utc
+      }
+    , Task.perform AdjustTimeZone Time.here
+    )
 
 
 type Msg
-    = UpdateName String
-    | UpdateContent String
+    = UpdateName Name
+    | UpdateContent Content
     | AddNote
     | AddNoteWithTimestamp Posix
     | AdjustTimeZone Time.Zone
@@ -45,41 +47,21 @@ update msg model =
             ( model, Task.perform AddNoteWithTimestamp Time.now )
 
         AddNoteWithTimestamp timeNow ->
-            ( { model | notes = Note model.newName model.newContent (posixToCivil timeNow) :: model.notes }, Cmd.none )
+            ( { model | notes = Note model.newName model.newContent timeNow :: model.notes }, Cmd.none )
 
         UpdateName name ->
             ( { model | newName = name }, Cmd.none )
 
         UpdateContent content ->
             ( { model | newContent = content }, Cmd.none )
-        
+
         AdjustTimeZone zone ->
-            ( { model | timeZone = zone }, Cmd.none)
+            ( { model | timeZone = zone }, Cmd.none )
 
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.none
-
-getDateString : DateRecord -> String
-getDateString dr =
-    let
-        year = String.fromInt dr.year
-        month = String.fromInt dr.month
-        day = String.fromInt dr.day
-    in
-        String.join "/" [day, month, year]
-    
-
-noteHtml : Note -> Html Msg
-noteHtml note =
-    case note of
-        Note name content ts ->
-            div []
-                [ p [] [ text ("Date: " ++ (getDateString ts)) ]
-                , p [] [ text ("Name: " ++ name) ]
-                , p [] [ text ("Message: " ++ content) ]
-                ]
 
 
 view : Model -> Html Msg

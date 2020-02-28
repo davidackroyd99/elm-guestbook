@@ -5225,6 +5225,7 @@ var $author$project$Note$Note = F3(
 	});
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
+var $elm$core$Basics$not = _Basics_not;
 var $elm$time$Time$Posix = function (a) {
 	return {$: 'Posix', a: a};
 };
@@ -5236,7 +5237,7 @@ var $author$project$Main$update = F2(
 			case 'AddNote':
 				return _Utils_Tuple2(
 					model,
-					A2($elm$core$Task$perform, $author$project$Main$AddNoteWithTimestamp, $elm$time$Time$now));
+					(!$elm$core$String$isEmpty(model.newContent)) ? A2($elm$core$Task$perform, $author$project$Main$AddNoteWithTimestamp, $elm$time$Time$now) : $elm$core$Platform$Cmd$none);
 			case 'AddNoteWithTimestamp':
 				var timeNow = msg.a;
 				return _Utils_Tuple2(

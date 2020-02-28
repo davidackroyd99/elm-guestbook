@@ -50,7 +50,13 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         AddNote ->
-            ( model, Task.perform AddNoteWithTimestamp Time.now )
+            ( model
+            , if not (String.isEmpty model.newContent) then
+                Task.perform AddNoteWithTimestamp Time.now
+
+              else
+                Cmd.none
+            )
 
         AddNoteWithTimestamp timeNow ->
             ( { model | notes = Note model.newName model.newContent timeNow :: model.notes }, Cmd.none )

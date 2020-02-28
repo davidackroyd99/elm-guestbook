@@ -5296,6 +5296,14 @@ var $elm$html$Html$Attributes$class = $elm$html$Html$Attributes$stringProperty('
 var $elm$html$Html$div = _VirtualDom_node('div');
 var $elm$html$Html$h1 = _VirtualDom_node('h1');
 var $elm$html$Html$input = _VirtualDom_node('input');
+var $author$project$Note$formatName = function (name) {
+	if (name === '') {
+		return 'Anonymous';
+	} else {
+		var nameGiven = name;
+		return nameGiven;
+	}
+};
 var $author$project$Note$getDateString = function (dr) {
 	var year = $elm$core$String$fromInt(dr.year);
 	var month = $elm$core$String$fromInt(dr.month);
@@ -5378,7 +5386,7 @@ var $author$project$Note$noteHtml = function (note) {
 				_List_fromArray(
 					[
 						$elm$html$Html$text(
-						'On the ' + ($author$project$Note$getPosixString(ts) + (', ' + (name + ' wrote:'))))
+						'On the ' + ($author$project$Note$getPosixString(ts) + (', ' + ($author$project$Note$formatName(name) + ' wrote:'))))
 					])),
 				A2(
 				$elm$html$Html$p,

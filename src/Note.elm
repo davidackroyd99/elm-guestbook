@@ -42,11 +42,21 @@ getDateString dr =
     String.join "/" [ day, month, year ]
 
 
+formatName : Name -> String
+formatName name =
+    case name of
+        "" ->
+            "Anonymous"
+
+        nameGiven ->
+            nameGiven
+
+
 noteHtml : Note -> Html msg
 noteHtml note =
     case note of
         Note name content ts ->
             div [ class "note-wrapper" ]
-                [ p [ class "note-info" ] [ text ("On the " ++ getPosixString ts ++ ", " ++ name ++ " wrote:") ]
+                [ p [ class "note-info" ] [ text ("On the " ++ getPosixString ts ++ ", " ++ formatName name ++ " wrote:") ]
                 , p [ class "note-content" ] [ text content ]
                 ]

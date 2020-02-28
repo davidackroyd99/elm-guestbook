@@ -5373,22 +5373,12 @@ var $author$project$Note$noteHtml = function (note) {
 				$elm$html$Html$p,
 				_List_fromArray(
 					[
-						$elm$html$Html$Attributes$class('note-date')
+						$elm$html$Html$Attributes$class('note-info')
 					]),
 				_List_fromArray(
 					[
 						$elm$html$Html$text(
-						'Date: ' + $author$project$Note$getPosixString(ts))
-					])),
-				A2(
-				$elm$html$Html$p,
-				_List_fromArray(
-					[
-						$elm$html$Html$Attributes$class('note-name')
-					]),
-				_List_fromArray(
-					[
-						$elm$html$Html$text('Name: ' + name)
+						'On the ' + ($author$project$Note$getPosixString(ts) + (', ' + (name + ' wrote:'))))
 					])),
 				A2(
 				$elm$html$Html$p,
@@ -5398,7 +5388,7 @@ var $author$project$Note$noteHtml = function (note) {
 					]),
 				_List_fromArray(
 					[
-						$elm$html$Html$text('Message: ' + content)
+						$elm$html$Html$text(content)
 					]))
 			]));
 };
@@ -5453,6 +5443,7 @@ var $elm$html$Html$Events$onInput = function (tagger) {
 			A2($elm$json$Json$Decode$map, tagger, $elm$html$Html$Events$targetValue)));
 };
 var $elm$html$Html$Attributes$placeholder = $elm$html$Html$Attributes$stringProperty('placeholder');
+var $elm$html$Html$textarea = _VirtualDom_node('textarea');
 var $author$project$Main$view = function (model) {
 	return A2(
 		$author$project$Main$Document,
@@ -5495,16 +5486,16 @@ var $author$project$Main$view = function (model) {
 								$elm$html$Html$input,
 								_List_fromArray(
 									[
-										$elm$html$Html$Attributes$class('form-name'),
+										$elm$html$Html$Attributes$class('form-field form-name'),
 										$elm$html$Html$Attributes$placeholder('Your Name'),
 										$elm$html$Html$Events$onInput($author$project$Main$UpdateName)
 									]),
 								_List_Nil),
 								A2(
-								$elm$html$Html$input,
+								$elm$html$Html$textarea,
 								_List_fromArray(
 									[
-										$elm$html$Html$Attributes$class('form-content'),
+										$elm$html$Html$Attributes$class('form-field form-content'),
 										$elm$html$Html$Attributes$placeholder('Your Message'),
 										$elm$html$Html$Events$onInput($author$project$Main$UpdateContent)
 									]),
@@ -5513,7 +5504,7 @@ var $author$project$Main$view = function (model) {
 								$elm$html$Html$button,
 								_List_fromArray(
 									[
-										$elm$html$Html$Attributes$class('form-submit'),
+										$elm$html$Html$Attributes$class('form-field form-submit'),
 										$elm$html$Html$Events$onClick($author$project$Main$AddNote)
 									]),
 								_List_fromArray(

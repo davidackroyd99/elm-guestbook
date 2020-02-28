@@ -47,7 +47,6 @@ noteHtml note =
     case note of
         Note name content ts ->
             div [ class "note-wrapper" ]
-                [ p [ class "note-date" ] [ text ("Date: " ++ getPosixString ts) ]
-                , p [ class "note-name" ] [ text ("Name: " ++ name) ]
-                , p [ class "note-content" ] [ text ("Message: " ++ content) ]
+                [ p [ class "note-info" ] [ text ("On the " ++ getPosixString ts ++ ", " ++ name ++ " wrote:") ]
+                , p [ class "note-content" ] [ text content ]
                 ]

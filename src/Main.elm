@@ -1,7 +1,7 @@
 module Main exposing (..)
 
 import Browser
-import Html exposing (Attribute, Html, button, div, h1, input, p, text)
+import Html exposing (Attribute, Html, button, div, h1, input, p, text, textarea)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onInput)
 import Note exposing (..)
@@ -76,9 +76,9 @@ view model =
         [ div [ class "content" ]
             [ div [ class "header" ] [ h1 [] [ text "My Online Guestbook" ] ]
             , div [ class "form" ]
-                [ input [ class "form-name", placeholder "Your Name", onInput UpdateName ] []
-                , input [ class "form-content", placeholder "Your Message", onInput UpdateContent ] []
-                , button [ class "form-submit", onClick AddNote ] [ text "Submit" ]
+                [ input [ class "form-field form-name", placeholder "Your Name", onInput UpdateName ] []
+                , textarea [ class "form-field form-content", placeholder "Your Message", onInput UpdateContent ] []
+                , button [ class "form-field form-submit", onClick AddNote ] [ text "Submit" ]
                 ]
             , div [ class "note-list" ] (List.map noteHtml model.notes)
             ]
